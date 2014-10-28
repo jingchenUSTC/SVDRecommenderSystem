@@ -2,7 +2,7 @@
  * Trainer.h
  *
  *  Created on: 2014Äê10ÔÂ20ÈÕ
- *      Author: xlk
+ *      Author: chenjing
  */
 #ifndef TRAINER_H_
 #define TRAINER_H_

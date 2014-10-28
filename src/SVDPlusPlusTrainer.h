@@ -2,7 +2,7 @@
  * SVDPlusPlusTrainer.h
  *
  *  Created on: 2014Äê10ÔÂ23ÈÕ
- *      Author: xlk
+ *      Author: chenjing
  */
 
 #ifndef SVDPLUSPLUSTRAINER_H_
