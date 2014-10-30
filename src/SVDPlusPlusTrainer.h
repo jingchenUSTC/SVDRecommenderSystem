@@ -19,7 +19,7 @@ private:
 	void init();
 	void loadHisFile(string fileName, string separator);
 public:
-	SVDPlusPlusTrainer(int dim = 8);
+	SVDPlusPlusTrainer(int dim = 8, bool isTr = false);
 	void train(float gama, float lambda, int nIter);
 	void loadFile(string mTrainFileName, string mTestFileName, string separator,
 			string mHisFileName);

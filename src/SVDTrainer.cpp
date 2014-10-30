@@ -7,9 +7,10 @@
 
 #include "SVDTrainer.h"
 
-SVDTrainer::SVDTrainer(int f) {
+SVDTrainer::SVDTrainer(int f, bool isTr) {
 	mUserNum = 0;
 	mItemNum = 0;
+	isTranspose = isTr;
 	dim = f;
 	p = NULL;
 	q = NULL;
@@ -42,6 +43,11 @@ void SVDTrainer::mapping(string fileName, int &un, int &in, string separator) {
 	while (getline(file, mLine)) {
 		userId = atoi(strtok((char *) mLine.c_str(), separator.c_str()));
 		itemId = atoi(strtok(NULL, separator.c_str()));
+		if (isTranspose) {
+			int temp = userId;
+			userId = itemId;
+			itemId = temp;
+		}
 		mLineNum++;
 		if (mLineNum % 50000 == 0)
 			cout << mLineNum << " lines read" << endl;
@@ -95,6 +101,11 @@ void SVDTrainer::loadFile(string mTrainFileName, string mTestFileName,
 	while (getline(file, mLine)) {
 		userId = atoi(strtok((char *) mLine.c_str(), separator.c_str()));
 		itemId = atoi(strtok(NULL, separator.c_str()));
+		if (isTranspose) {
+			int temp = userId;
+			userId = itemId;
+			itemId = temp;
+		}
 		rate = atof(strtok(NULL, separator.c_str()));
 		mLineNum++;
 		if (mLineNum % 1000 == 0) {
@@ -185,6 +196,11 @@ void SVDTrainer::predict(string mOutputFileName, string separator) {
 	while (getline(file, mLine)) {
 		userId = atoi(strtok((char *) mLine.c_str(), mSeparator.c_str()));
 		itemId = atoi(strtok(NULL, mSeparator.c_str()));
+		if (isTranspose) {
+			int temp = userId;
+			userId = itemId;
+			itemId = temp;
+		}
 		rate = atoi(strtok(NULL, mSeparator.c_str()));
 		float rui = mean + bu[mUserId2Map[userId]] + bi[mItemId2Map[itemId]]
 				+ mt->getInnerProduct(p[mUserId2Map[userId]],

@@ -15,6 +15,8 @@
 #include <math.h>
 class SVDTrainer: public Trainer {
 protected:
+	//是否转置
+	bool isTranspose;
 	//用户数
 	int mUserNum;
 	//item数
@@ -31,7 +33,9 @@ protected:
 	float *bi;
 	//平均评分
 	float mean;
+	//最高分
 	float mMaxRate;
+	//最低分
 	float mMinRate;
 	string mTestFileName;
 	string mSeparator;
@@ -42,7 +46,7 @@ protected:
 	void init();
 	void mapping(string fileName, int &un, int &in, string separator);
 public:
-	SVDTrainer(int f = 8);
+	SVDTrainer(int f = 8, bool isTr = false);
 	virtual void train(float gama, float lambda, int nIter);
 	void loadFile(string mTrainFileName, string mTestFileName, string separator,
 			string mHisFileName = "");

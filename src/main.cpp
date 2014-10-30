@@ -8,7 +8,7 @@
 #include "SVDTrainer.h"
 #include "SVDPlusPlusTrainer.h"
 int main(int argc, char **argv) {
-	Trainer *trainer = new SVDTrainer(100);
+	Trainer *trainer = new SVDPlusPlusTrainer();
 	trainer->loadFile("F:/baidu-data/train.txt", "F:/baidu-data/test.txt",
 			"\t");
 	trainer->train();

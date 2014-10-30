@@ -7,8 +7,9 @@
 
 #include "SVDPlusPlusTrainer.h"
 
-SVDPlusPlusTrainer::SVDPlusPlusTrainer(int dim) {
+SVDPlusPlusTrainer::SVDPlusPlusTrainer(int dim, bool isTr) {
 	this->dim = dim;
+	isTranspose = isTr;
 	y = NULL;
 	z = NULL;
 	sum = NULL;
@@ -22,6 +23,11 @@ void SVDPlusPlusTrainer::loadHisFile(string fileName, string separator) {
 	while (getline(file, mLine)) {
 		userId = atoi(strtok((char *) mLine.c_str(), separator.c_str()));
 		itemId = atoi(strtok(NULL, separator.c_str()));
+		if (isTranspose) {
+			int temp = userId;
+			userId = itemId;
+			itemId = temp;
+		}
 		mLineNum++;
 		if (mLineNum % 50000 == 0)
 			cout << mLineNum << " lines read" << endl;
@@ -143,6 +149,11 @@ void SVDPlusPlusTrainer::predict(string mOutputFileName, string separator) {
 	while (getline(file, mLine)) {
 		userId = atoi(strtok((char *) mLine.c_str(), mSeparator.c_str()));
 		itemId = atoi(strtok(NULL, mSeparator.c_str()));
+		if (isTranspose) {
+			int temp = userId;
+			userId = itemId;
+			itemId = temp;
+		}
 		rate = atoi(strtok(NULL, mSeparator.c_str()));
 		float ru;
 		if (mHisMatrix[mUserId2Map[userId]].size() != 0)
