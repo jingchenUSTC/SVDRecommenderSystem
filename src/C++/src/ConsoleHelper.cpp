@@ -12,19 +12,19 @@ ConsoleHelper::ConsoleHelper(int argc, char **argv) {
 		mArgMap.insert(map<string, string>::value_type(argv[i], argv[i + 1]));
 	}
 }
-string ConsoleHelper::getArgument(string argName, string defaultValue) {
+string ConsoleHelper::getArg(string argName, string defaultValue) {
 	if (mArgMap.find(argName) == mArgMap.end()) {
 		return defaultValue;
 	} else
 		return mArgMap[argName];
 }
-int ConsoleHelper::getArgument(string argName, int defaultValue) {
+int ConsoleHelper::getArg(string argName, int defaultValue) {
 	if (mArgMap.find(argName) == mArgMap.end()) {
 		return defaultValue;
 	} else
 		return atoi(mArgMap[argName].c_str());
 }
-float ConsoleHelper::getArgument(string argName, float defaultValue) {
+float ConsoleHelper::getArg(string argName, float defaultValue) {
 	if (mArgMap.find(argName) == mArgMap.end()) {
 		return defaultValue;
 	} else

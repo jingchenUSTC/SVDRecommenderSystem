@@ -16,9 +16,9 @@ private:
 	map<string, string> mArgMap;
 public:
 	ConsoleHelper(int argc, char **argv);
-	string getArgument(string argName, string defaultValue);
-	int getArgument(string argName, int defaultValue);
-	float getArgument(string argName, float defaultValue);
+	string getArg(string argName, string defaultValue);
+	int getArg(string argName, int defaultValue);
+	float getArg(string argName, float defaultValue);
 	virtual ~ConsoleHelper();
 };
 

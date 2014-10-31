@@ -16,14 +16,14 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	ConsoleHelper helper(argc, argv);
-	string trainfile = helper.getArgument("-train", "");
-	string testfile = helper.getArgument("-test", "");
-	string separator = helper.getArgument("-sep", "\t");
-	string outputfile = helper.getArgument("-out", "");
-	int dim = helper.getArgument("-dim", 8);
-	float gama = helper.getArgument("-gama", 0.006f);
-	float alpha = helper.getArgument("-alpha", 0.03f);
-	int nIter = helper.getArgument("-iter", 100);
+	string trainfile = helper.getArg("-train", "");
+	string testfile = helper.getArg("-test", "");
+	string separator = helper.getArg("-sep", "\t");
+	string outputfile = helper.getArg("-out", "");
+	int dim = helper.getArg("-dim", 8);
+	float gama = helper.getArg("-gama", 0.006f);
+	float alpha = helper.getArg("-alpha", 0.03f);
+	int nIter = helper.getArg("-iter", 100);
 	if (trainfile.length() == 0) {
 		cout << "please input trainfile" << endl;
 		return 1;
