@@ -43,6 +43,7 @@ protected:
 	map<int, int> mUserId2Map;
 	map<int, int> mItemId2Map;
 	vector<vector<Node> > mRateMatrix;
+private:
 	void init();
 	void mapping(string fileName, int &un, int &in, string separator);
 public:
