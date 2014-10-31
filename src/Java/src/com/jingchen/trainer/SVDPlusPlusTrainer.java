@@ -1,7 +1,8 @@
 package com.jingchen.trainer;
 
 public class SVDPlusPlusTrainer extends SVDTrainer {
-	public SVDPlusPlusTrainer() {
+	public SVDPlusPlusTrainer(int dim) {
+		super(dim);
 	}
 
 	@Override
