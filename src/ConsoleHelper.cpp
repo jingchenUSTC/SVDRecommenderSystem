@@ -2,7 +2,7 @@
  * ConsoleHelper.cpp
  *
  *  Created on: 2014Äê10ÔÂ31ÈÕ
- *      Author: xlk
+ *      Author: jingchen
  */
 
 #include "ConsoleHelper.h"

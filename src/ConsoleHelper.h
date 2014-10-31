@@ -2,7 +2,7 @@
  * ConsoleHelper.h
  *
  *  Created on: 2014Äê10ÔÂ31ÈÕ
- *      Author: xlk
+ *      Author: jingchen
  */
 
 #ifndef CONSOLEHELPER_H_
