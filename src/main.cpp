@@ -15,8 +15,6 @@ int main(int argc, char **argv) {
 				<< endl;
 	}
 	ConsoleHelper helper(argc, argv);
-	cout << helper.getArgument("-train", "") << endl;
-	cout << helper.getArgument("-test", "") << endl;
 	string trainfile = helper.getArgument("-train", "");
 	string testfile = helper.getArgument("-test", "");
 	string separator = helper.getArgument("-sep", "\t");
@@ -25,6 +23,13 @@ int main(int argc, char **argv) {
 	float gama = helper.getArgument("-gama", 0.006f);
 	float alpha = helper.getArgument("-alpha", 0.03f);
 	int nIter = helper.getArgument("-iter", 100);
+	if (trainfile.length() == 0) {
+		cout << "please input trainfile" << endl;
+		return 1;
+	} else if (testfile.length() == 0) {
+		cout << "please input testfile" << endl;
+		return 1;
+	}
 	Trainer *trainer = new SVDPlusPlusTrainer(dim);
 	trainer->loadFile(trainfile, testfile, separator);
 	trainer->train(gama, alpha, nIter);
