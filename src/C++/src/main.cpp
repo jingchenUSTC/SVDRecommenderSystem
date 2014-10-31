@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
 		cout
 				<< "Usage: \n\t-train trainfile\n\t-test predictfile\n\t-sep separator\n\t-dim featureLength\n\t-gama gama\n\t-alpha alpha\n\t-iter iternum\n\t-out outputfile"
 				<< endl;
+		return 1;
 	}
 	ConsoleHelper helper(argc, argv);
 	string trainfile = helper.getArgument("-train", "");
