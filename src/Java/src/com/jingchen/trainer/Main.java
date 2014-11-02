@@ -6,12 +6,13 @@ public class Main {
 	public static void main(String[] args) {
 		if (args.length < 5) {
 			System.out
-					.println("Usage: \n\t-train trainfile\n\t-test predictfile\n\t-sep separator\n\t-dim featureLength\n\t-gama gama\n\t-alpha alpha\n\t-iter iternum\n\t-out outputfile");
+					.println("Usage: \n\t-train trainfile\n\t-test predictfile\n\t-his historyfile\n\t-sep separator\n\t-dim featureLength\n\t-gama gama\n\t-alpha alpha\n\t-iter iternum\n\t-out outputfile");
 			return;
 		}
 		ConsoleHelper helper = new ConsoleHelper(args);
 		String trainfile = helper.getArg("-train", "");
 		String testfile = helper.getArg("-test", "");
+		String hisfile = helper.getArg("-his", "");
 		String separator = helper.getArg("-sep", "\t");
 		String outputfile = helper.getArg("-out", "");
 		int dim = helper.getArg("-dim", 8);
@@ -28,6 +29,8 @@ public class Main {
 		Trainer trainer = new SVDPlusPlusTrainer(dim, false);
 		try {
 			trainer.loadFile(trainfile, testfile, separator);
+			if (!hisfile.equals(""))
+				trainer.loadHisFile(hisfile, separator);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			return;

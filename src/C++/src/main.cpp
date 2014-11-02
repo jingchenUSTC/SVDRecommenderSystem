@@ -11,13 +11,14 @@
 int main(int argc, char **argv) {
 	if (argc < 5) {
 		cout
-				<< "Usage: \n\t-train trainfile\n\t-test predictfile\n\t-sep separator\n\t-dim featureLength\n\t-gama gama\n\t-alpha alpha\n\t-iter iternum\n\t-out outputfile"
+				<< "Usage: \n\t-train trainfile\n\t-test predictfile\n\t-his historyfile\n\t-sep separator\n\t-dim featureLength\n\t-gama gama\n\t-alpha alpha\n\t-iter iternum\n\t-out outputfile"
 				<< endl;
 		return 1;
 	}
 	ConsoleHelper helper(argc, argv);
 	string trainfile = helper.getArg("-train", "");
 	string testfile = helper.getArg("-test", "");
+	string hisfile = helper.getArg("-his", "");
 	string separator = helper.getArg("-sep", "\t");
 	string outputfile = helper.getArg("-out", "");
 	int dim = helper.getArg("-dim", 8);
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	Trainer *trainer = new SVDPlusPlusTrainer(dim);
-	trainer->loadFile(trainfile, testfile, separator);
+	trainer->loadFile(trainfile, testfile, separator, hisfile);
 	trainer->train(gama, alpha, nIter);
 	trainer->predict(outputfile, separator);
 	return 1;
