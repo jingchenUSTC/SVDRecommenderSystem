@@ -34,6 +34,8 @@ public class SVDPlusPlusTrainer extends SVDTrainer {
 				mHisFileName)));
 		String mLine = null;
 		mHisMatrix = new ArrayList[mUserNum + 1];
+		for (int i = 1; i < mHisMatrix.length; i++)
+			mHisMatrix[i] = new ArrayList<>();
 		int userId, itemId, mLineNum = 0;
 		while ((mLine = br.readLine()) != null) {
 			String[] splits = mLine.split(separator);
@@ -66,7 +68,7 @@ public class SVDPlusPlusTrainer extends SVDTrainer {
 		double Rmse = 0, mLastRmse = 100000;
 		int nRateNum = 0;
 		float rui = 0;
-		for (int n = 1; n < nIter; n++) {
+		for (int n = 1; n <= nIter; n++) {
 			Rmse = 0;
 			nRateNum = 0;
 			for (int i = 1; i <= mUserNum; i++) {
@@ -115,14 +117,13 @@ public class SVDPlusPlusTrainer extends SVDTrainer {
 								* (sum[len] - lambda
 										* y[mHisMatrix[i].get(k).getId()][len]);
 				}
-				Rmse = Math.sqrt(Rmse / nRateNum);
-				print("n = " + n + " Rmse = " + Rmse);
-				if (Rmse > mLastRmse)
-					break;
-				mLastRmse = Rmse;
-				gama *= 0.9;
 			}
-
+			Rmse = Math.sqrt(Rmse / nRateNum);
+			print("n = " + n + " Rmse = " + Rmse);
+			if (Rmse > mLastRmse)
+				break;
+			mLastRmse = Rmse;
+			gama *= 0.9;
 		}
 		print("------training complete!------");
 	}
@@ -180,6 +181,7 @@ public class SVDPlusPlusTrainer extends SVDTrainer {
 		}
 		print("test file Rmse = " + Math.sqrt(Rmse / nNum));
 		br.close();
-		bw.close();
+		if (bw != null)
+			bw.close();
 	}
 }

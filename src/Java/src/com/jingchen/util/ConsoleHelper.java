@@ -8,6 +8,9 @@ public class ConsoleHelper {
 
 	public ConsoleHelper(String[] args) {
 		mArgMap = new HashMap<>();
+		for (int i = 0; i < args.length; i += 2) {
+			mArgMap.put(args[i], args[i + 1]);
+		}
 	}
 
 	public String getArg(String argName, String defaultValue) {

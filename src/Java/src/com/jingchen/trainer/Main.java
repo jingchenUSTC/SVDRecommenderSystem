@@ -25,11 +25,12 @@ public class Main {
 			System.out.println("please input testfile");
 			return;
 		}
-		Trainer trainer = new SVDTrainer(dim, false);
+		Trainer trainer = new SVDPlusPlusTrainer(dim, false);
 		try {
 			trainer.loadFile(trainfile, testfile, separator);
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			return;
 		}
 		trainer.train(gama, alpha, nIter);
 		try {

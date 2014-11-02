@@ -99,6 +99,8 @@ public class SVDTrainer implements Trainer {
 		q = new float[mItemNum + 1][dim];
 		bi = new float[mItemNum + 1];
 		mRateMatrix = new ArrayList[mUserNum + 1];
+		for (int i = 1; i < mRateMatrix.length; i++)
+			mRateMatrix[i] = new ArrayList<>();
 
 		int userId, itemId, mLineNum = 0;
 		float rate = 0;
@@ -116,10 +118,15 @@ public class SVDTrainer implements Trainer {
 			}
 			rate = Float.valueOf(splits[2]);
 			mLineNum++;
-			mRateMatrix[mUserId2Map.get(userId)].add(new Node(itemId, rate));
+			mRateMatrix[mUserId2Map.get(userId)].add(new Node(mItemId2Map
+					.get(itemId), rate));
 			if (mLineNum % 50000 == 0)
 				print(mLineNum + " lines read");
 			mean += rate;
+			if (rate < mMinRate)
+				mMinRate = rate;
+			if (rate > mMaxRate)
+				mMaxRate = rate;
 		}
 		mean /= mLineNum;
 		init();
@@ -140,7 +147,7 @@ public class SVDTrainer implements Trainer {
 		double Rmse = 0, mLastRmse = 100000;
 		int nRateNum = 0;
 		float rui = 0;
-		for (int n = 1; n < nIter; n++) {
+		for (int n = 1; n <= nIter; n++) {
 			Rmse = 0;
 			nRateNum = 0;
 			for (int i = 1; i <= mUserNum; i++)
@@ -221,11 +228,13 @@ public class SVDTrainer implements Trainer {
 		}
 		print("test file Rmse = " + Math.sqrt(Rmse / nNum));
 		br.close();
-		bw.close();
+		if (bw != null)
+			bw.close();
 	}
 
 	@Override
-	public void loadHisFile(String mHisFileName, String separator) throws Exception {
-		
+	public void loadHisFile(String mHisFileName, String separator)
+			throws Exception {
+
 	}
 }

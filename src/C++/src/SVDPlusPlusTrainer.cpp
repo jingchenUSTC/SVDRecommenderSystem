@@ -76,7 +76,7 @@ void SVDPlusPlusTrainer::train(float gama, float lambda, int nIter) {
 	long double Rmse = 0, mLastRmse = 100000;
 	int nRateNum = 0;
 	float rui = 0;
-	for (int n = 1; n < nIter; n++) {
+	for (int n = 1; n <= nIter; n++) {
 		Rmse = 0;
 		nRateNum = 0;
 		for (int i = 1; i <= mUserNum; i++) {
