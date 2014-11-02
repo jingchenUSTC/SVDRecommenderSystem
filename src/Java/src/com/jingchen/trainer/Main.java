@@ -25,8 +25,12 @@ public class Main {
 			System.out.println("please input testfile");
 			return;
 		}
-		Trainer trainer = new SVDTrainer(dim);
+		Trainer trainer = new SVDTrainer(dim, false);
 		trainer.train(gama, alpha, nIter);
-		trainer.predict(outputfile, separator);
+		try {
+			trainer.predict(outputfile, separator);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
