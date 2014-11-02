@@ -3,11 +3,11 @@ package com.jingchen.trainer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jingchen.util.MathTool;
@@ -29,7 +29,7 @@ public class SVDTrainer implements Trainer {
 	protected MathTool mt;
 	protected Map<Integer, Integer> mUserId2Map;
 	protected Map<Integer, Integer> mItemId2Map;
-	protected ArrayList<Node>[] mRateMatrix;
+	protected List<Node>[] mRateMatrix;
 
 	public SVDTrainer(int dim, boolean isTranspose) {
 		this.isTranspose = isTranspose;
@@ -50,6 +50,11 @@ public class SVDTrainer implements Trainer {
 			String[] splits = mLine.split(separator);
 			userId = Integer.valueOf(splits[0]);
 			itemId = Integer.valueOf(splits[1]);
+			if (isTranspose) {
+				int temp = userId;
+				userId = itemId;
+				itemId = temp;
+			}
 			if (!mUserId2Map.containsKey(userId)) {
 				mUserNum++;
 				mUserId2Map.put(userId, mUserNum);
@@ -104,6 +109,11 @@ public class SVDTrainer implements Trainer {
 			String[] splits = mLine.split(separator);
 			userId = Integer.valueOf(splits[0]);
 			itemId = Integer.valueOf(splits[1]);
+			if (isTranspose) {
+				int temp = userId;
+				userId = itemId;
+				itemId = temp;
+			}
 			rate = Float.valueOf(splits[2]);
 			mLineNum++;
 			mRateMatrix[mUserId2Map.get(userId)].add(new Node(itemId, rate));
@@ -212,5 +222,10 @@ public class SVDTrainer implements Trainer {
 		print("test file Rmse = " + Math.sqrt(Rmse / nNum));
 		br.close();
 		bw.close();
+	}
+
+	@Override
+	public void loadHisFile(String mHisFileName, String separator) throws Exception {
+		
 	}
 }

@@ -26,6 +26,11 @@ public class Main {
 			return;
 		}
 		Trainer trainer = new SVDTrainer(dim, false);
+		try {
+			trainer.loadFile(trainfile, testfile, separator);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		trainer.train(gama, alpha, nIter);
 		try {
 			trainer.predict(outputfile, separator);
