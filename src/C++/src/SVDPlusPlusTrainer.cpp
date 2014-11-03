@@ -7,9 +7,8 @@
 
 #include "SVDPlusPlusTrainer.h"
 
-SVDPlusPlusTrainer::SVDPlusPlusTrainer(int dim, bool isTr) {
-	this->dim = dim;
-	isTranspose = isTr;
+SVDPlusPlusTrainer::SVDPlusPlusTrainer(int dim, bool isTr) :
+		SVDTrainer(dim, isTr) {
 	y = NULL;
 	z = NULL;
 	sum = NULL;

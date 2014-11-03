@@ -11,11 +11,12 @@
 #include "SVDTrainer.h"
 
 class SVDPlusPlusTrainer: public SVDTrainer {
-private:
+protected:
 	float **y;
 	float *z;
 	float *sum;
 	vector<vector<Node> > mHisMatrix;
+private:
 	void init();
 	void loadHisFile(string fileName, string separator);
 public:

@@ -7,7 +7,7 @@
 
 #include "SVDTrainer.h"
 
-SVDTrainer::SVDTrainer(int f, bool isTr) {
+SVDTrainer::SVDTrainer(int f , bool isTr) {
 	mUserNum = 0;
 	mItemNum = 0;
 	isTranspose = isTr;
