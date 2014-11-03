@@ -8,11 +8,12 @@
 #ifndef SVDTRAINER_H_
 #define SVDTRAINER_H_
 #include "Trainer.h"
-#include "Node.h"
 #include "MathTool.h"
 #include<string.h>
 #include <stdlib.h>
 #include <math.h>
+
+#include "Node.h"
 class SVDTrainer: public Trainer {
 protected:
 	//ÊÇ·ñ×ªÖÃ

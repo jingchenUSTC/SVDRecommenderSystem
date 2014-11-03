@@ -109,7 +109,7 @@ void SVDTrainer::loadFile(string mTrainFileName, string mTestFileName,
 		rate = atof(strtok(NULL, separator.c_str()));
 		mLineNum++;
 		if (mLineNum % 1000 == 0) {
-			cout << mLineNum << " lines read" << endl;
+			cout << "trainfile: " << mLineNum << " lines read" << endl;
 		}
 		mRateMatrix[mUserId2Map[userId]].push_back(
 				Node(mItemId2Map[itemId], rate));

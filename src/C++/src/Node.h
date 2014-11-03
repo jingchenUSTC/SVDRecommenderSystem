@@ -13,10 +13,19 @@ private:
 	int mId;
 	float mRate;
 public:
-	Node(int id, float rate);
-	int getId();
-	float getRate();
-	virtual ~Node();
+	Node(int id, float rate) :
+			mId(id), mRate(rate) {
+
+	}
+	int getId() {
+		return mId;
+	}
+	float getRate() {
+		return mRate;
+	}
+	~Node() {
+
+	}
 };
 
 #endif /* NODE_H_ */
