@@ -7,6 +7,7 @@
 #include "ConsoleHelper.h"
 #include "Trainer.h"
 #include "SVDTrainer.h"
+#include "AsymSVD.h"
 #include "SVDPlusPlusTrainer.h"
 int main(int argc, char **argv) {
 	if (argc < 5) {
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
 		cout << "please input testfile" << endl;
 		return 1;
 	}
-	Trainer *trainer = new SVDPlusPlusTrainer(dim);
+	Trainer *trainer = new AsymSVD(dim);
 	trainer->loadFile(trainfile, testfile, separator, hisfile);
 	trainer->train(gama, alpha, nIter);
 	trainer->predict(outputfile, separator);
