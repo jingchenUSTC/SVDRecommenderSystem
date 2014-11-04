@@ -49,7 +49,7 @@ private:
 	void mapping(string fileName, int &un, int &in, string separator);
 public:
 	SVDTrainer(int f = 8, bool isTr = false);
-	virtual void train(float gama, float lambda, int nIter);
+	virtual void train(float alpha, float lambda, int nIter);
 	void loadFile(string mTrainFileName, string mTestFileName, string separator,
 			string mHisFileName = "");
 	void predict(string mOutputFileName, string separator);

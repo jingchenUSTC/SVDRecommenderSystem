@@ -33,7 +33,7 @@ void AsymSVD::loadFile(string mTrainFileName, string mTestFileName,
 		w[i] = 0;
 	}
 }
-void AsymSVD::train(float gama, float lambda, int nIter) {
+void AsymSVD::train(float alpha, float lambda, int nIter) {
 	cout << "------start training------" << endl;
 	long double Rmse = 0, mLastRmse = 100000;
 	int nRateNum = 0;
@@ -73,8 +73,8 @@ void AsymSVD::train(float gama, float lambda, int nIter) {
 				else if (rui < mMinRate)
 					rui = mMinRate;
 				float e = mRateMatrix[i][j].getRate() - rui;
-				bu[i] += gama * (e - lambda * bu[i]);
-				bi[mRateMatrix[i][j].getId()] += gama
+				bu[i] += alpha * (e - lambda * bu[i]);
+				bi[mRateMatrix[i][j].getId()] += alpha
 						* (e - lambda * bi[mRateMatrix[i][j].getId()]);
 				for (int k = 0; k < dim; k++) {
 					sum[k] += ru * e * q[mRateMatrix[i][j].getId()][k];
@@ -82,7 +82,7 @@ void AsymSVD::train(float gama, float lambda, int nIter) {
 							* (mRateMatrix[i][j].getRate() - mean - bu[i]
 									- bi[mRateMatrix[i][j].getId()])
 							* q[mRateMatrix[i][j].getId()][k];
-					q[mRateMatrix[i][j].getId()][k] += gama
+					q[mRateMatrix[i][j].getId()][k] += alpha
 							* (e * z[k]
 									- lambda * q[mRateMatrix[i][j].getId()][k]);
 				}
@@ -92,7 +92,7 @@ void AsymSVD::train(float gama, float lambda, int nIter) {
 			for (unsigned int k = 0; k < mRateMatrix[i].size(); k++) {
 				for (int len = 0; len < dim; len++)
 					x[mRateMatrix[i][k].getId()][len] +=
-							gama
+							alpha
 									* (sumx[len]
 											- lambda
 													* x[mRateMatrix[i][k].getId()][len]);
@@ -100,7 +100,7 @@ void AsymSVD::train(float gama, float lambda, int nIter) {
 			for (unsigned int k = 0; k < mHisMatrix[i].size(); k++) {
 				for (int len = 0; len < dim; len++)
 					y[mHisMatrix[i][k].getId()][len] +=
-							gama
+							alpha
 									* (sum[len]
 											- lambda
 													* y[mHisMatrix[i][k].getId()][len]);
@@ -111,7 +111,7 @@ void AsymSVD::train(float gama, float lambda, int nIter) {
 		if (Rmse > mLastRmse && n > 10)
 			break;
 		mLastRmse = Rmse;
-		gama *= 0.9;
+		alpha *= 0.9;
 	}
 	cout << "------training complete!------" << endl;
 }

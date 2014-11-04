@@ -17,7 +17,7 @@ private:
 	float *sumx;
 public:
 	AsymSVD(int dim, bool isTranspose = false);
-	void train(float gama, float lambda, int nIter);
+	void train(float alpha, float lambda, int nIter);
 	void loadFile(string mTrainFileName, string mTestFileName, string separator,
 			string mHisFileName);
 	void predict(string mOutputFileName, string separator);

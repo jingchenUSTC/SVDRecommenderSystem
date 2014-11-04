@@ -21,7 +21,7 @@ private:
 	void loadHisFile(string fileName, string separator);
 public:
 	SVDPlusPlusTrainer(int dim = 8, bool isTr = false);
-	void train(float gama, float lambda, int nIter);
+	void train(float alpha, float lambda, int nIter);
 	void loadFile(string mTrainFileName, string mTestFileName, string separator,
 			string mHisFileName);
 	void predict(string mOutputFileName, string separator);

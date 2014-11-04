@@ -69,7 +69,7 @@ void SVDPlusPlusTrainer::init() {
 		sum[j] = 0;
 }
 
-void SVDPlusPlusTrainer::train(float gama, float lambda, int nIter) {
+void SVDPlusPlusTrainer::train(float alpha, float lambda, int nIter) {
 
 	cout << "------start training------" << endl;
 	long double Rmse = 0, mLastRmse = 100000;
@@ -100,15 +100,15 @@ void SVDPlusPlusTrainer::train(float gama, float lambda, int nIter) {
 					rui = mMinRate;
 				float e = mRateMatrix[i][j].getRate() - rui;
 				//¸üÐÂbu,bi,p,q
-				bu[i] += gama * (e - lambda * bu[i]);
-				bi[mRateMatrix[i][j].getId()] += gama
+				bu[i] += alpha * (e - lambda * bu[i]);
+				bi[mRateMatrix[i][j].getId()] += alpha
 						* (e - lambda * bi[mRateMatrix[i][j].getId()]);
 				for (int k = 0; k < dim; k++) {
 					sum[k] += ru * e * q[mRateMatrix[i][j].getId()][k];
-					p[i][k] += gama
+					p[i][k] += alpha
 							* (e * q[mRateMatrix[i][j].getId()][k]
 									- lambda * p[i][k]);
-					q[mRateMatrix[i][j].getId()][k] += gama
+					q[mRateMatrix[i][j].getId()][k] += alpha
 							* (e * (p[i][k] + z[k])
 									- lambda * q[mRateMatrix[i][j].getId()][k]);
 				}
@@ -118,7 +118,7 @@ void SVDPlusPlusTrainer::train(float gama, float lambda, int nIter) {
 			for (unsigned int k = 0; k < mHisMatrix[i].size(); k++) {
 				for (int len = 0; len < dim; len++)
 					y[mHisMatrix[i][k].getId()][len] +=
-							gama
+							alpha
 									* (sum[len]
 											- lambda
 													* y[mHisMatrix[i][k].getId()][len]);
@@ -129,7 +129,7 @@ void SVDPlusPlusTrainer::train(float gama, float lambda, int nIter) {
 		if (Rmse > mLastRmse)
 			break;
 		mLastRmse = Rmse;
-		gama *= 0.9;
+		alpha *= 0.9;
 	}
 	cout << "------training complete!------" << endl;
 }

@@ -138,7 +138,7 @@ void SVDTrainer::init() {
 	for (int i = 0; i < mItemNum; i++)
 		bi[i] = 0;
 }
-void SVDTrainer::train(float gama, float lambda, int nIter) {
+void SVDTrainer::train(float alpha, float lambda, int nIter) {
 	cout << "------start training------" << endl;
 	long double Rmse = 0, mLastRmse = 100000;
 	int nRateNum = 0;
@@ -158,14 +158,14 @@ void SVDTrainer::train(float gama, float lambda, int nIter) {
 				float e = mRateMatrix[i][j].getRate() - rui;
 
 				//¸üÐÂbu,bi,p,q
-				bu[i] += gama * (e - lambda * bu[i]);
-				bi[mRateMatrix[i][j].getId()] += gama
+				bu[i] += alpha * (e - lambda * bu[i]);
+				bi[mRateMatrix[i][j].getId()] += alpha
 						* (e - lambda * bi[mRateMatrix[i][j].getId()]);
 				for (int k = 0; k < dim; k++) {
-					p[i][k] += gama
+					p[i][k] += alpha
 							* (e * q[mRateMatrix[i][j].getId()][k]
 									- lambda * p[i][k]);
-					q[mRateMatrix[i][j].getId()][k] += gama
+					q[mRateMatrix[i][j].getId()][k] += alpha
 							* (e * p[i][k]
 									- lambda * q[mRateMatrix[i][j].getId()][k]);
 				}
@@ -177,7 +177,7 @@ void SVDTrainer::train(float gama, float lambda, int nIter) {
 		if (Rmse > mLastRmse)
 			break;
 		mLastRmse = Rmse;
-		gama *= 0.9;
+		alpha *= 0.9;
 	}
 	cout << "------training complete!------" << endl;
 }
