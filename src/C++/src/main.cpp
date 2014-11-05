@@ -8,23 +8,36 @@
 #include "Trainer.h"
 #include "SVDTrainer.h"
 #include "AsymSVD.h"
+#include "Constant.h"
 #include "SVDPlusPlusTrainer.h"
+Trainer *getTrainer(string methodName, int dim) {
+	if (methodName == "SVD")
+		return new SVDTrainer(dim);
+	else if (methodName == "ASVD")
+		return new AsymSVD(dim);
+	else if (methodName == "SVDPP")
+		return new SVDPlusPlusTrainer(dim);
+	else
+		return NULL;
+}
 int main(int argc, char **argv) {
 	if (argc < 5) {
 		cout
-				<< "Usage: \n\t-train trainfile\n\t-test predictfile\n\t-his historyfile\n\t-sep separator\n\t-dim featureLength\n\t-alpha alpha\n\t-lambda lambda\n\t-iter iternum\n\t-out outputfile"
+				<< "Usage: \n\t-train trainfile\n\t-test predictfile\n\t-his historyfile\n\t-sep separator\n\t-method SVD,ASVD,SVDPP\n\t-dim featureLength\n\t-alpha alpha\n\t-lambda lambda\n\t-iter iternum\n\t-out outputfile"
 				<< endl;
 		return 1;
 	}
 	ConsoleHelper helper(argc, argv);
+	Constant constant;
 	string trainfile = helper.getArg("-train", "");
 	string testfile = helper.getArg("-test", "");
+	string method = helper.getArg("-method", "SVD");
 	string hisfile = helper.getArg("-his", "");
 	string separator = helper.getArg("-sep", "\t");
 	string outputfile = helper.getArg("-out", "");
 	int dim = helper.getArg("-dim", 8);
-	float alpha = helper.getArg("-alpha", 0.006f);
-	float lambda = helper.getArg("-lambda", 0.03f);
+	float alpha = helper.getArg("-alpha", constant.getDefaultAlpha(method));
+	float lambda = helper.getArg("-lambda", constant.getDefaultLambda(method));
 	int nIter = helper.getArg("-iter", 100);
 	if (trainfile.length() == 0) {
 		cout << "please input trainfile" << endl;
@@ -33,7 +46,11 @@ int main(int argc, char **argv) {
 		cout << "please input testfile" << endl;
 		return 1;
 	}
-	Trainer *trainer = new AsymSVD(dim);
+	if (!constant.isContainMethod(method)) {
+		cout << "There is no method named " << method << endl;
+		return 1;
+	}
+	Trainer *trainer = getTrainer(method, dim);
 	trainer->loadFile(trainfile, testfile, separator, hisfile);
 	trainer->train(alpha, lambda, nIter);
 	trainer->predict(outputfile, separator);
